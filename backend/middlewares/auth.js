@@ -16,3 +16,5 @@ const isAuthorized = catchAsyncError( async (req,res,next) => {
 
     next();
 })
+
+module.exports = isAuthorized
