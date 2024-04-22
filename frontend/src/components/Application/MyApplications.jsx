@@ -23,14 +23,14 @@ const MyApplications = () => {
             { withCredentials: true }
           );
           setApplications(response.data.applications);
-          console.log(applications)
+          // console.log(applications)
         } else if(user && user.role === "Job Seeker"){
           const response = await axios.get(
             "http://localhost:4000/api/v1/application/jobseeker/getall",
             { withCredentials: true }
           );
           setApplications(response.data.applications);
-          console.log(response.data)
+          // console.log(response.data)
         }
       } catch (error) {
         toast.error(error.response.data.error);
