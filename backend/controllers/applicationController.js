@@ -21,21 +21,22 @@ const employerGetAllApplications = catchAsyncError(async (req, res, next) => {
 })
 
 
-const jobSeekerGetAllApplications = catchAsyncError(async (req, res, next) => {
-    const { role } = req.user
+ const jobseekerGetAllApplications = catchAsyncError(
+  async (req, res, next) => {
+    const { role } = req.user;
     if (role === "Employer") {
-        return next(new ErrorHandler("Employer cannot access this resourse", 400))
+      return next(
+        new ErrorHandler("Employer not allowed to access this resource.", 400)
+      );
     }
-
-    const { _id } = req.user
-    const applications = await Application.find({ 'applicantId.user': _id })
-
+    const { _id } = req.user;
+    const applications = await Application.find({ "applicantID.user": _id });
     res.status(200).json({
-        success: true,
-        applications
-    })
-
-})
+      success: true,
+      applications,
+    });
+  }
+);
 
 const jobSeekerDeleteApplication = catchAsyncError(async (req, res, next) => {
     const { role } = req.user
@@ -137,4 +138,4 @@ const postApplication = catchAsyncError(async (req, res, next) => {
   });
 
 
-module.exports = { employerGetAllApplications, jobSeekerGetAllApplications, jobSeekerDeleteApplication, postApplication }
+module.exports = { employerGetAllApplications, jobseekerGetAllApplications, jobSeekerDeleteApplication, postApplication }

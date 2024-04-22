@@ -25,7 +25,8 @@ const App = () => {
   useEffect(() =>{
     const fetchUser = async () =>{
       try {
-        const response = await axios.get('http://localhost:4000/api/v1/user/getuser',{withCredentials:true});
+        const response = await axios.get('http://localhost:4000/api/v1/user/getuser',{withCredentials:true}); 
+        // withCredentials: true will send cookie to backend
         setUser(response.data.user)
         setIsAuthorized(true)
       } catch (error) {
