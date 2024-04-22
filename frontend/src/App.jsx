@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Context } from "./main";
 import { useContext, useState } from "react";
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
@@ -19,6 +19,22 @@ import ResumeModel from "./components/Application/ResumeModel";
 import NotFound from "./components/NotFound/NotFound";
 
 const App = () => {
+
+  const {isAuthorized,setIsAuthorized,setUser} = useContext(Context)
+
+  useEffect(() =>{
+    const fetchUser = async () =>{
+      try {
+        const response = await axios.get('http://localhost:4000/api/v1/user/getuser',{withCredentials:true});
+        setUser(response.data.user)
+        setIsAuthorized(true)
+      } catch (error) {
+        setIsAuthorized(false)
+      }
+    }
+    fetchUser()
+  },[isAuthorized]);
+
   return (
     <>
       <Router>
@@ -36,7 +52,7 @@ const App = () => {
           <Route path="*" element={<NotFound />} />
           
         </Routes>
-        <Footer></Footer>
+        {/* <Footer></Footer> */}
         <Toaster></Toaster>
       </Router>
     </>

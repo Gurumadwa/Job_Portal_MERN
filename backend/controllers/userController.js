@@ -52,7 +52,7 @@ const login = catchAsyncError(async (req, res, next) => {
 })
 
 const logout = catchAsyncError(async (req, res, next) => {
-    res.status(201).cookie("token", "", {
+    res.status(200).cookie("token", "", {
         httpOnly: true,
         expires: new Date(Date.now())
     }).json({
